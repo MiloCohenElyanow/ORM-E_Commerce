@@ -4,7 +4,7 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 // The `/api/products` endpoint
 
 // get all products
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   // find all products
   // be sure to include its associated Category and Tag data
 
@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
     const allProducts = await Product.findAll({
       include: [{ model: Category }, { model: Tag }]
     });
-    res.status(200).json(allProducts)
+    res.status(200).json({message: "all products found succesfully: "},allProducts)
 
   } catch (error){
     res.status(500).json(error)
@@ -21,19 +21,19 @@ router.get('/', (req, res) => {
 });
 
 // get one product
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
 
   try{ 
-    const getProduct = await Product.findByPk(
-      req.params.id, { include: [{ model: Category }, { model: Tag}]
+    const aProduct = await Product.findByPk(req.params.id, { 
+        include: [{ model: Category }, { model: Tag}]
     });
-    if (!getProduct) {
+    if (!aProduct) {
       res.status(400).json({ message: " could not find product with given ID"});
-      return:
+      return;
     } else {
-      res.status(200).json(getProduct);
+      res.status(200).json({message: "Product found succesfully: "}, aProduct)
     }
 
   } catch (error){
@@ -115,7 +115,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   // delete one product by its `id` value
   try{
     const rmProduct = await Product.destroy({
@@ -123,10 +123,10 @@ router.delete('/:id', (req, res) => {
     });
 
     if(!rmProduct) {
-      res.status(404).json({"cannot find product with given ID"});
+      res.status(404).json({message: "cannot find product with given ID"});
       return;
     } else {
-      res.status(200).json(rmProduct);
+      res.status(200).json({message: "Product deleted succesfully: "},rmProduct)
     }
   } catch (error){
     res.status(500).json(error);
