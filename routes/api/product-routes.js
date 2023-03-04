@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
     const allProducts = await Product.findAll({
       include: [{ model: Category }, { model: Tag }]
     });
-    res.status(200).json({message: "all products found succesfully: "},allProducts)
+    res.status(200).json({message: "all products found succesfully: ",allProducts})
 
   } catch (error){
     res.status(500).json(error)
@@ -33,7 +33,7 @@ router.get('/:id', async (req, res) => {
       res.status(400).json({ message: " could not find product with given ID"});
       return;
     } else {
-      res.status(200).json({message: "Product found succesfully: "}, aProduct)
+      res.status(200).json({message: "Product found succesfully: ", aProduct})
     }
 
   } catch (error){
@@ -126,7 +126,7 @@ router.delete('/:id', async (req, res) => {
       res.status(404).json({message: "cannot find product with given ID"});
       return;
     } else {
-      res.status(200).json({message: "Product deleted succesfully: "},rmProduct)
+      res.status(200).json({message: "Product deleted succesfully: ",rmProduct})
     }
   } catch (error){
     res.status(500).json(error);

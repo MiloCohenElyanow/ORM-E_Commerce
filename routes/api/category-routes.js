@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
     const allCategory = await Category.findAll({
       include: [{ model: Product}]
     });
-    res.status(200).json({message: "all Categories found succesfully: "},allCategory)
+    res.status(200).json({message: "all Categories found succesfully: " ,allCategory})
   } catch (error){
     res.status(500).json(error);
   }
@@ -28,7 +28,7 @@ router.get('/:id', async (req, res) => {
       res.status(404).json({message: "could not find Category with given ID"});
       return;
     } else {
-      res.status(200).json({message: "Category found succesfully: "},aCategory)
+      res.status(200).json({message: "Category found succesfully: " ,aCategory})
     }
   
 
@@ -43,7 +43,7 @@ router.post('/', async (req, res) => {
     const newCategory = await Category.create({
       category_name: req.body.category_name
     });
-    res.status(200).json({message: "Category created succesfully: "},newCategory);
+    res.status(200).json({message: "Category created succesfully: " ,newCategory});
   } catch (error){
     restore.status(500).json(error)
   }
@@ -64,7 +64,7 @@ router.put('/:id', async (req, res) => {
     if(!updateCategory) {
       res.status(404).json({message: "could not find category to update with given ID"});
     } else {
-      res.status(200).json({message: "Category updated succesfully: "},updateCategory)
+      res.status(200).json({message: "Category updated succesfully: " ,updateCategory})
     }
   } catch (error){
     res.status(500).json(error);
@@ -84,7 +84,7 @@ router.delete('/:id', async (req, res) => {
       res.status(404).json({message: "could not find category to delete with given ID"});
       return;
     } else{
-      res.status(200).json({message: "Category deleted succesfully: "},rmCategory)
+      res.status(200).json({message: "Category deleted succesfully: " ,rmCategory})
     }
   } catch (error){
     res.status(500).json(error)
